@@ -1,0 +1,33 @@
+version: '3'
+  
+services:
+  base:
+    build: 
+      context: ./ubuntu_apache_mysql/
+      args:
+        SSH_PRIVATE_KEY: ${RSA}
+        SSH_PUBLIC_KEY: ${RSA_PUB}
+    image: mike/ubuntu_apache_mysql
+    container_name: base
+  base_m:
+    build: ./ubuntu_apache_mysql_magento/
+    image: mike/ubuntu_apache_mysql_magento
+    depends_on: 
+      - base
+    container_name: base_m
+  m22:
+    build: ./magento2.2/
+    depends_on: 
+      - base_m
+    ports: 
+      - "82:80"
+    tty: true
+    container_name: m22
+ # m23:
+ #   build: ./magento2.3/
+ #   depends_on: 
+ #     - base_m
+ #   ports: 
+ #     - "83:80"
+ #  tty: true
+ #   container_name: m23
