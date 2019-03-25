@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+
+PATHS="/var/www/html/magento2ce"
+
+execute() {
+    docker-compose exec m22 php $PATHS/bin/magento $*
+}
+
+howTo () {
+    printf "This is how to use the CLI console script"
+}
+
+case "$1" in
+    execute)
+    shift 1
+    execute $*
+    ;;
+
+    *)
+    howTo
+    ;;
+esac
+
+exit 0
