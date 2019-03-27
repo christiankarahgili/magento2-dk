@@ -32,7 +32,7 @@ RUN /etc/init.d/mysql start && \
 	--admin-password=mageU123 --db-name=m2 --db-host=localhost --db-user=root \
 	--use-rewrites=1 --admin-use-security-key=0 ; \
 	php bin/magento cache:disable full_page ; \ 
-	php bin/magento sampledata:deploy ; \
+#	php bin/magento sampledata:deploy ; \
 	chmod -R 777 /var/www/html/magento2ce/
 
 #COPY ./debian.bashrc /root/.bashrc
