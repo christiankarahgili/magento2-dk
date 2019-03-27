@@ -12,3 +12,7 @@ Windows
 Login / Password
 admin
 mageU123
+
+Magento 2.2.x
+run command inside the container
+magento2.2/bin/console execute c:c
