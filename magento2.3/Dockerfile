@@ -1,5 +1,5 @@
 FROM mike/ubuntu_apache_mysql_magento
-MAINTAINER mike.molochko@gmail.com
+MAINTAINER chandlerbing7@gmail.com
 
 # PHP
 RUN apt install apt-transport-https lsb-release ca-certificates -y ; \
@@ -28,7 +28,7 @@ RUN /etc/init.d/mysql start && \
 	cd /var/www/html/magento2ce/ &&  \
 	php bin/magento setup:install --base-url=http://magento2u.loc:83 \
 	--admin-firstname=admin --admin-lastname=admin --backend-frontname=admin \
-	--admin-email=mike.molochko@gmail.com --admin-user=admin \
+	--admin-email=chandlerbing7@gmail.com --admin-user=admin \
 	--admin-password=mageU123 --db-name=m2 --db-host=localhost --db-user=root \
 	--use-rewrites=1 --admin-use-security-key=0 ; \
 	php bin/magento cache:disable full_page ; \ 
