@@ -1,5 +1,5 @@
 FROM mike/ubuntu_apache_mysql_magento
-MAINTAINER mike.molochko@gmail.com
+MAINTAINER chandlerbing7@gmail.com
 
 # PHP
 RUN apt install apt-transport-https lsb-release ca-certificates -y ; \
@@ -28,25 +28,27 @@ RUN /etc/init.d/mysql start && \
 	cd /var/www/html/magento2ce/ &&  \
 	php bin/magento setup:install --base-url=http://magento2u.loc:82 \
 	--admin-firstname=admin --admin-lastname=admin --backend-frontname=admin \
-	--admin-email=mike.molochko@gmail.com --admin-user=admin \
+	--admin-email=chandlerbing7@gmail.com --admin-user=admin \
 	--admin-password=mageU123 --db-name=m2 --db-host=localhost \
 	--db-user=root --use-rewrites=1 --admin-use-security-key=0 ; \
-	php bin/magento cache:disable full_page ; \ 
-#	php bin/magento sampledata:deploy ; \
+	php bin/magento cache:disable full_page ; \
 	chmod -R 777 /var/www/html/magento2ce/
 
 # Magento Sample data
-#RUN cd /var/www/html/magento2ce/ && \
-#	rm -rf .git && \
-#	git init && \
-#	git remote add origin https://github.com/magento/magento2-sample-data.git && \
-#	git fetch && \
-#	git checkout 2.2.7 --force && \
-#	git pull origin 2.2.7 && \
+RUN cd /var/www/html/magento2ce/ && \
+	rm -rf .git && \
+	git init && \
+	git remote add origin https://github.com/magento/magento2-sample-data.git && \
+	git fetch && \
+	git checkout 2.2.7 --force && \
+	git pull origin 2.2.7
 	
-#RUN php bin/magento setup:upgrade
+#RUN bin/magento setup:upgrade
 
-#COPY ./debian.bashrc /root/.bashrc
+# Mysql
+COPY ./mysql/my.cnf /etc/mysql/my.cnf
+RUN /etc/init.d/mysql restart
+
 RUN apt --purge autoremove -y ; apt clean
 
 ENTRYPOINT 	/etc/init.d/mysql start && service sendmail restart && \
