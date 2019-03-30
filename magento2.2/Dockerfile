@@ -17,10 +17,16 @@ RUN	apt install -y 	php7.1-bcmath php7.1-bz2 php7.1-cli php7.1-common \
 RUN update-alternatives --set php /usr/bin/php7.1 ; \
 	a2dismod php7.0 ; a2enmod php7.1 ; service apache2 restart
 
-# Magento2
+# Magento2 and Sample Data
 RUN cd /var/www/html/magento2ce/ && \
 	git checkout 2.2.7 --force && \ 
 	git checkout -b magento_2_2_7 && \
+	rm -rf .git && \
+	git init && \
+	git remote add origin https://github.com/magento/magento2-sample-data.git && \
+	git fetch && \
+	git checkout 2.2.7 --force && \
+	git pull origin 2.2.7 && \
 	composer install && \
 	composer update ; bin/magento setup:upgrade ; \
 	chmod -R 777 .
@@ -33,17 +39,6 @@ RUN /etc/init.d/mysql start && \
 	--db-user=root --use-rewrites=1 --admin-use-security-key=0 ; \
 	php bin/magento cache:disable full_page ; \
 	chmod -R 777 /var/www/html/magento2ce/
-
-# Magento Sample data
-RUN cd /var/www/html/magento2ce/ && \
-	rm -rf .git && \
-	git init && \
-	git remote add origin https://github.com/magento/magento2-sample-data.git && \
-	git fetch && \
-	git checkout 2.2.7 --force && \
-	git pull origin 2.2.7
-	
-#RUN bin/magento setup:upgrade
 
 # Mysql
 COPY ./mysql/my.cnf /etc/mysql/my.cnf
