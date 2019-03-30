@@ -1,4 +1,4 @@
-FROM mike/ubuntu_apache_mysql
+FROM mike/debian_config
 MAINTAINER chandlerbing7@gmail.com
 
 # Magento2

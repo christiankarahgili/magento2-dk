@@ -1,4 +1,4 @@
-FROM mike/ubuntu_apache_mysql_magento
+FROM mike/magento_config
 MAINTAINER chandlerbing7@gmail.com
 
 # PHP

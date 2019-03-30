@@ -3,20 +3,20 @@ version: '3'
 services:
   base:
     build: 
-      context: ./ubuntu_apache_mysql/
+      context: ./debian_config/
       args:
         SSH_PRIVATE_KEY: ${RSA}
         SSH_PUBLIC_KEY: ${RSA_PUB}
-    image: mike/ubuntu_apache_mysql
+    image: mike/debian_config
     container_name: base
   base_m:
-    build: ./ubuntu_apache_mysql_magento/
-    image: mike/ubuntu_apache_mysql_magento
+    build: ./magento_config/
+    image: mike/magento_config
     depends_on: 
       - base
     container_name: base_m
   m22:
-    build: ./magento2.2/
+    build: ./m22_config/
     depends_on: 
       - base_m
     ports: 
@@ -24,7 +24,7 @@ services:
     tty: true
     container_name: m22
  # m23:
- #   build: ./magento2.3/
+ #   build: ./m23_config/
  #   depends_on: 
  #     - base_m
  #   ports: 

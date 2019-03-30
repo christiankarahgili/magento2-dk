@@ -20,7 +20,11 @@ RUN a2enmod rewrite ; \
 	a2enmod mpm_prefork ; \
 	a2enmod php7.0
 
-ENV APACHE_RUN_USER     www-data
+# Create user and assign to web server group
+RUN adduser magento
+RUN usermod -aG www-data magento
+
+ENV APACHE_RUN_USER     magento
 ENV APACHE_RUN_GROUP    www-data
 ENV APACHE_LOG_DIR      /var/log/apache2
 ENV APACHE_PID_FILE     /var/run/apache2.pid
