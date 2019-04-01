@@ -25,8 +25,8 @@ RUN cd /var/www/html/magento2ce/ && \
 	git init && \
 	git remote add origin https://github.com/magento/magento2-sample-data.git && \
 	git fetch && \
-	git checkout 2.3.0 --force && \
-	git pull origin 2.3.0 && \
+	git checkout 2.3.1 --force && \
+	git pull origin 2.3.1 && \
 	composer install && \
 	composer update ; bin/magento setup:upgrade ; \
 	chmod -R 777 .
