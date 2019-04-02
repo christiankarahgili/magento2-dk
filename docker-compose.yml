@@ -23,11 +23,11 @@ services:
       - "82:80"
     tty: true
     container_name: m22
- # m23:
- #   build: ./m23_config/
- #   depends_on: 
- #     - base_m
- #   ports: 
- #     - "83:80"
- #  tty: true
- #   container_name: m23
+  m23:
+    build: ./m23_config/
+    depends_on: 
+      - base_m
+    ports: 
+      - "83:80"
+    tty: true
+    container_name: m23
