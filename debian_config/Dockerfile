@@ -57,15 +57,15 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 # Git
 RUN apt install -y git
-RUN mkdir /root/.ssh/
-RUN echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa && \
-    echo "$SSH_PUBLIC_KEY" > /root/.ssh/id_rsa.pub && \
-    chmod 600 /root/.ssh/id_rsa && \
-    chmod 600 /root/.ssh/id_rsa.pub
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-RUN cd /var/www/html && rm index.html && git init && \
-	git config --global user.email "chandlerbing7@gmail.com" && \
-	git config --global user.name "Mykhailo Molochko"
+#RUN mkdir /root/.ssh/
+#RUN echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa && \
+#    echo "$SSH_PUBLIC_KEY" > /root/.ssh/id_rsa.pub && \
+#    chmod 600 /root/.ssh/id_rsa && \
+#    chmod 600 /root/.ssh/id_rsa.pub
+#RUN touch /root/.ssh/known_hosts
+#RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+#RUN cd /var/www/html && rm index.html && git init && \
+#	git config --global user.email "chandlerbing7@gmail.com" && \
+#	git config --global user.name "Mykhailo Molochko"
 
 RUN apt --purge autoremove -y ; apt clean

@@ -4,9 +4,9 @@ services:
   base:
     build: 
       context: ./debian_config/
-      args:
-        SSH_PRIVATE_KEY: ${RSA}
-        SSH_PUBLIC_KEY: ${RSA_PUB}
+#      args:
+#        SSH_PRIVATE_KEY: ${RSA}
+#        SSH_PUBLIC_KEY: ${RSA_PUB}
     image: mike/debian_config
     container_name: base
   base_m:
