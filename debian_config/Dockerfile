@@ -11,13 +11,17 @@ RUN echo "127.0.0.1 localhost magento2u.loc" >> /etc/hosts
 
 # Apache
 RUN apt install -y 	apache2 \
-						php7.0-mysql \
-						php7.0-mbstring \
 						libapache2-mod-php && \
 						apt-get clean
+RUN apt install apt-transport-https lsb-release ca-certificates -y ; \
+	apt install wget -y ; \
+	wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg ; \
+	echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > \
+	/etc/apt/sources.list.d/php.list ; \
+	apt update ; apt install php7.1 -y
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite ; \
-	a2enmod mpm_prefork ; \
+	a2enmod mpm_prefork  ; \
 	a2enmod php7.0
 
 # Create user and assign to web server group
@@ -31,18 +35,18 @@ ENV APACHE_PID_FILE     /var/run/apache2.pid
 ENV APACHE_RUN_DIR      /var/run/apache2
 ENV APACHE_LOCK_DIR     /var/lock/apache2
 
-RUN sed -i "s,/html,/html/magento2ce/ \n <Directory /var/www/html/magento2ce/> \
+RUN sed -i "s,/html,/var/www/html/shared/magento2ce/ \n <Directory /var/www/html/shared/magento2ce/> \
 			\n Options FollowSymLinks MultiViews \n AllowOverride All \n Order allow\,deny \
 			\n allow from all \n Require all granted \n </Directory> \n,g" \
 			/etc/apache2/sites-available/000-default.conf 
 
 # PHP
-RUN	apt install -y 	php7.0-bcmath php7.0-bz2 php7.0-cli php7.0-common \
-					php7.0-curl php7.0-dba php7.0-gd php7.0-gmp php7.0-imap \
-					php7.0-intl php7.0-ldap php7.0-mbstring php7.0-mcrypt \
-					php7.0-mysql php7.0-odbc php7.0-pgsql php7.0-recode \
-					php7.0-snmp php7.0-soap php7.0-sqlite php7.0-tidy \
-					php7.0-xml php7.0-xmlrpc php7.0-xsl php7.0-zip 
+RUN	apt install -y 	php7.1-bcmath php7.1-bz2 php7.1-cli php7.1-common \
+					php7.1-curl php7.1-dba php7.1-gd php7.1-gmp php7.1-imap \
+					php7.1-intl php7.1-ldap php7.1-mbstring php7.1-mcrypt \
+					php7.1-mysql php7.1-odbc php7.1-pgsql php7.1-recode \
+					php7.1-snmp php7.1-soap php7.1-sqlite php7.1-tidy \
+					php7.1-xml php7.1-xmlrpc php7.1-xsl php7.1-zip
 
 # MySQL
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y mysql-server
@@ -57,15 +61,5 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 # Git
 RUN apt install -y git
-#RUN mkdir /root/.ssh/
-#RUN echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa && \
-#    echo "$SSH_PUBLIC_KEY" > /root/.ssh/id_rsa.pub && \
-#    chmod 600 /root/.ssh/id_rsa && \
-#    chmod 600 /root/.ssh/id_rsa.pub
-#RUN touch /root/.ssh/known_hosts
-#RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-#RUN cd /var/www/html && rm index.html && git init && \
-#	git config --global user.email "chandlerbing7@gmail.com" && \
-#	git config --global user.name "Mykhailo Molochko"
 
 RUN apt --purge autoremove -y ; apt clean
