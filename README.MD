@@ -1,0 +1,132 @@
+# Docker Environment for Merchant Magento U Courses and Trainings
+
+This guide will help you set up a local Magento environment for the Merchant courses, if you don't have one already.
+
+The goal is to have a local environment with:
+- A web server (Apache) with php, starts from 7.1
+- A MySQL-like (MariaDB) database server
+- Magento Open Source code
+- Magento Open Source sample data
+
+## Introduction
+
+We are providing custom docker images so once loaded, you will be ready to start with the Merchant courses.
+
+At the end of this guide you will find the instructions for installing the environment with the custom docker images. You don't need to follow those instructions, they are provided for your reference.
+
+## Requirements
+
+- MacOS, Linux or Windows
+- [Docker Desktop installed](https://www.docker.com/products/docker-desktop)
+- [GIT](https://git-scm.com/downloads)
+- [Visual Studio Code](https://code.visualstudio.com/download)
+
+## Step by step guide
+
+- Update docker-compose.yml file to set the proper local folders where you want to store the local data.
+
+```yaml
+     volumes:
+       - /path/to/your/local/www:/var/www/html/shared
+```
+
+Example:
+
+Unix:
+```yaml
+     volumes:
+       - /PATH/TO/YOUR/magento/magento-dev-dk/magento23.loc:/var/www/html/shared
+```
+
+Windows:
+```yaml
+     volumes:
+       - C:\PATH\TO\YOUR\magento/magento-dev-dk/magento23.loc:/var/www/html/shared
+```
+- This is will be your directory for develop purpose:
+/PATH/TO/YOUR/magento/magento-dev-dk/magento23.loc
+
+- Once you have Docker Desktop running, [Clone the following from GIT](https://github.com/mike61988/magento2-dev-dk/) to the your working directory. For example this is could be ```YOUR\WORKING\DIRECORY\magento\magento-dev-dk```.
+- Open a terminal in that folder and run the following command
+
+```
+docker-compose up -d
+```
+
+- After docker images successfully built run
+
+Unix:
+```
+docker exec -ti <CONTAINER_ID> /bin/bash
+```
+
+Windows:
+```
+docker exec -it <CONTAINER_ID> //bin/sh
+```
+
+Example:
+
+Unix:
+```
+docker exec -ti m23 /bin/bash
+```
+
+Windows:
+```
+docker exec -it m23 //bin/sh
+```
+
+### Final step
+- Inside the container run
+
+```
+mv /var/www/html/magento2ce /var/www/html/shared/
+```
+## Other important information
+- In case if you need restart the VM. Rebooting your computer will require restarting the VM.
+
+```
+docker-compose stop
+```
+
+```
+docker-compose start
+```
+
+- To run Magento CLI command in a running container
+```
+sh m23_config/bin/console execute ANY_MAGENTO_CLI_COMMAND
+```
+
+Example:
+```
+sh m23_config/bin/console execute cache:clean
+```
+
+- Change your local hosts file to resolve the local magento2u.loc domain
+Unix:
+```bash
+sudo nano /etc/hosts
+127.0.0.1       magento2u.loc
+```
+
+Windows:
+```
+Windows host file location is C:\Windows\System32\drivers\etc\hosts
+Open file as administrator (or use visual studio code editor), add the following line: 
+127.0.0.1       magento2u.loc
+then save the file
+```
+
+- Now you're able to test it by opening a browser and entering `http://magento2u.loc:82` or `http://magento2u.loc:83`, it depends of installed version.
+You also, will be able to login to the admin `http://magento2u.loc:82/admin` or `http://magento2u.loc:83/admin` using the following credentials:
+
+```
+username: admin
+pass: mageU123
+```
+
+- Thats it, you have your VM for learning purposes for Magento 2.2 and Magento 2.3.
+
+Good luck on your training! :)
