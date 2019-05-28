@@ -4,7 +4,7 @@
 PATHS="/var/www/html/shared/magento2ce"
 
 execute() {
-    docker-compose exec m22 php $PATHS/bin/magento $*
+    docker-compose exec m23 php $PATHS/bin/magento $*
 }
 
 howTo () {
