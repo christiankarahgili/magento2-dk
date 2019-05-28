@@ -5,6 +5,7 @@ ARG SSH_PRIVATE_KEY
 ARG SSH_PUBLIC_KEY
 
 # System
+#RUN echo "deb http://security.debian.org/ stretch/updates main contrib non-free" > /etc/apt/sources.list
 RUN	apt update
 RUN apt install -y 	curl nano vim sendmail
 RUN echo "127.0.0.1 localhost magento2u.loc" >> /etc/hosts
