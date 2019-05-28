@@ -27,6 +27,7 @@ RUN cd /var/www/html/magento2ce/ && \
 	git fetch && \
 	git checkout 2.3.1 --force && \
 	git pull origin 2.3.1 && \
+	rm -rf .git && \
 	composer install && \
 	composer update ; bin/magento setup:upgrade ; \
 	chmod -R 777 .
@@ -37,7 +38,6 @@ RUN /etc/init.d/mysql start && \
 	--admin-email=chandlerbing7@gmail.com --admin-user=admin \
 	--admin-password=mageU123 --db-name=m2 --db-host=localhost --db-user=root \
 	--use-rewrites=1 --admin-use-security-key=0 ; \
-	php bin/magento cache:disable full_page ; \ 
 	chmod -R 777 /var/www/html/magento2ce/
 
 # Mysql
