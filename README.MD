@@ -1,4 +1,4 @@
-# Docker Environment for Merchant Magento U Courses and Trainings
+# Docker Environment for Developer Magento U Courses and Trainings
 
 This guide will help you set up a local Magento environment for the Merchant courses, if you don't have one already.
 
@@ -35,18 +35,18 @@ Example:
 Unix:
 ```yaml
      volumes:
-       - /PATH/TO/YOUR/magento/magento-dev-dk/magento23.loc:/var/www/html/shared
+       - /PATH/TO/YOUR/magento/magento-dk/instances:/var/www/html/shared
 ```
 
 Windows:
 ```yaml
      volumes:
-       - C:\PATH\TO\YOUR\magento/magento-dev-dk/magento23.loc:/var/www/html/shared
+       - C:\PATH\TO\YOUR\magento/magento-dk/instances:/var/www/html/shared
 ```
 - This is will be your directory for develop purpose:
-/PATH/TO/YOUR/magento/magento-dev-dk/magento23.loc
+/PATH/TO/YOUR/magento/magento-dk/instances
 
-- Once you have Docker Desktop running, [Clone the following from GIT](https://github.com/mike61988/magento2-dev-dk/) to the your working directory. For example this is could be ```YOUR\WORKING\DIRECORY\magento\magento-dev-dk```.
+- Once you have Docker Desktop running, [Clone the following from GIT](https://github.com/mike61988/magento2-dk/) to the your working directory. For example this is could be ```YOUR\WORKING\DIRECORY\magento\magento-dk```.
 - Open a terminal in that folder and run the following command
 
 ```
