@@ -31,7 +31,7 @@ while ! docker ps > /dev/null 2>&1 ; do sleep 2; done
 
 echo "== Stopping running docker containers..."
 docker-compose down > /dev/null 2>&1
-docker volume prune -f > /dev/null
+#docker volume prune -f > /dev/null
 
 osascript -e 'quit app "Docker"'
 
