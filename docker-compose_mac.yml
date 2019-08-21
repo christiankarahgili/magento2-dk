@@ -12,23 +12,21 @@ services:
     depends_on:
       - base
     container_name: base_m
-  # m22:
-  #   build: ./m22_config/
-  #   depends_on:
-  #     - base_m
-  #   ports:
-  #     - "82:80"
-  #   volumes:
-  #      - /Users/molochko/Sites/magento/magento-dev-dk/instances:/var/www/html/shared
-  #   tty: true
-  #   container_name: m22
   m23:
     build: ./m23_config/
+    image: mike/m23_config
     depends_on:
       - base_m
     ports:
       - "83:80"
     volumes:
-       - /Path/To/Your/magento/magento2-dev-dk/instances:/var/www/html/shared
+      - src-volume-dk:/var/www/html/shared
     tty: true
     container_name: m23
+volumes:
+  src-volume-dk:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,soft,nfsvers=3
+      device: ":/Path/To/Your/magento/magento2-dev-dk/instances"

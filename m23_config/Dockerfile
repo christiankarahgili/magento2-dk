@@ -13,9 +13,12 @@ RUN	apt install -y 	php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-common \
 					php7.2-intl php7.2-ldap php7.2-mbstring  \
 					php7.2-mysql php7.2-odbc php7.2-pgsql php7.2-recode \
 					php7.2-snmp php7.2-soap php7.2-sqlite php7.2-tidy \
-					php7.2-xml php7.2-xmlrpc php7.2-xsl php7.2-zip 
+					php7.2-xml php7.2-xmlrpc php7.2-xsl php7.2-zip
 RUN update-alternatives --set php /usr/bin/php7.2 ; \
 	a2dismod php7.0 ; a2enmod php7.2 ; service apache2 restart
+
+COPY ./config/php.ini /etc/php/7.1/apache2/php.ini
+COPY ./config/php.ini /etc/php/7.2/apache2/php.ini
 
 # Magento2 and Sample Data
 RUN cd /var/www/html/magento2ce/ && \
@@ -29,7 +32,7 @@ RUN cd /var/www/html/magento2ce/ && \
 	git pull origin 2.3.1 && \
 	rm -rf .git && \
 	composer install && \
-	composer update ; bin/magento setup:upgrade ; \
+	bin/magento setup:upgrade ; \
 	chmod -R 777 .
 RUN /etc/init.d/mysql start && \
 	cd /var/www/html/magento2ce/ &&  \
@@ -41,8 +44,8 @@ RUN /etc/init.d/mysql start && \
 	chmod -R 777 /var/www/html/magento2ce/
 
 # Mysql
-COPY ./mysql/my.cnf /etc/mysql/my.cnf
-RUN /etc/init.d/mysql restart
+#COPY ./mysql/my.cnf /etc/mysql/my.cnf
+#RUN /etc/init.d/mysql restart
 
 RUN apt --purge autoremove -y ; apt clean
 
