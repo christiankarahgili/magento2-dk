@@ -38,7 +38,7 @@ At the end of this guide you will find the instructions for installing the envir
      volumes:
        - /path/to/your/local/www:/var/www/html/shared
 ```
-or for mac
+or for mac plus nfs
 ```yaml
      device: ":/path/to/local/magento/magento2/oms/instance"
 ```
