@@ -1,6 +1,6 @@
 # Docker Environment for Developer Magento U Courses and Trainings
 
-This guide will help you set up a local Magento environment for the Merchant courses, if you don't have one already.
+This guide will help you set up a local Magento environment for the developer courses and trainings, if you don't have one already.
 
 The goal is to have a local environment with:
 - A web server (Apache) with php, starts from 7.1
@@ -10,7 +10,7 @@ The goal is to have a local environment with:
 
 ## Introduction
 
-We are providing custom docker images so once loaded, you will be ready to start with the Merchant courses.
+We are providing custom docker images so once loaded, you will be ready to start with the developer courses and trainings.
 
 At the end of this guide you will find the instructions for installing the environment with the custom docker images. You don't need to follow those instructions, they are provided for your reference.
 
