@@ -2,3 +2,4 @@
 /magento23.loc
 instances
 .docker-sync/
+.idea

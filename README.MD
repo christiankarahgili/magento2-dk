@@ -103,6 +103,36 @@ mv /var/www/html/magento2ce /var/www/html/shared/
 After that command Magento instance will be apear in `instances` directory
 
 ## Other important information
+- In case if you want to use the VM for the "Core Principles for theming" course. Please follow these simple steps.
+
+```
+cd /var/www/html/shared/
+```
+```
+curl -sL https://deb.nodesource.com/setup_12.x | bash -
+```
+```
+apt-get install -y nodejs
+```
+```
+npm install -g grunt-cli
+```
+```
+mv Gruntfile.js.sample Gruntfile.js
+```
+```
+mv package.json.sample package.json
+```
+```
+npm install
+```
+```
+grunt exec
+```
+```
+grunt less
+```
+
 - In case if you need restart the VM. Rebooting your computer will require restarting the VM.
 
 ```
