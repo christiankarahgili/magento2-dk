@@ -19,6 +19,7 @@ services:
       - base_m
     ports:
       - "83:80"
+      - "4306:3306"
     volumes:
       - src-volume-dk:/var/www/html/shared
     tty: true

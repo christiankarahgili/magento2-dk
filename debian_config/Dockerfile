@@ -5,8 +5,6 @@ ARG SSH_PRIVATE_KEY
 ARG SSH_PUBLIC_KEY
 
 # System
-#RUN echo "deb http://security.debian.org/ stretch/updates main contrib non-free" > /etc/apt/sources.list
-#RUN echo "deb http://repo.mysql.com/mysql-apt-config_0.8.10-1_all.deb" > /etc/apt/sources.list
 RUN	apt update
 RUN apt install -y 	curl nano vim sendmail
 RUN echo "127.0.0.1 localhost magento2u.loc" >> /etc/hosts
@@ -38,11 +36,6 @@ ENV APACHE_PID_FILE     /var/run/apache2.pid
 ENV APACHE_RUN_DIR      /var/run/apache2
 ENV APACHE_LOCK_DIR     /var/lock/apache2
 
-#RUN sed -i "s,/html,/var/www/html/shared/magento2ce/ \n <Directory /var/www/html/shared/magento2ce/> \
-#			\n Options FollowSymLinks MultiViews \n AllowOverride All \n Order allow\,deny \
-#			\n allow from all \n Require all granted \n </Directory> \n,g" \
-#			/etc/apache2/sites-available/000-default.conf
-
 COPY ./conf/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN a2ensite 000-default
@@ -56,8 +49,6 @@ RUN	apt install -y 	php7.1-bcmath php7.1-bz2 php7.1-cli php7.1-common \
 					php7.1-xml php7.1-xmlrpc php7.1-xsl php7.1-zip
 
 # MySQL
-#RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb ; \
-#	dpkg -i mysql-apt-config_0.8.10-1_all.deb
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y mariadb-server
 RUN /etc/init.d/mysql start && \
         mysql -u root -e \
@@ -67,6 +58,9 @@ RUN /etc/init.d/mysql start && \
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
+
+# NodeJs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 # Git
 RUN apt install -y git

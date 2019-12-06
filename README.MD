@@ -25,7 +25,7 @@ At the end of this guide you will find the instructions for installing the envir
 
 - Before start the steps the following services should be switched off: apache2/nginx, mysql.
 
-- Once you have Docker Desktop running, copy docker environment to your working directory. For example this is could be ```YOUR\WORKING\DIRECORY\magento\magento-oms-dk```.
+- Once you have Docker Desktop running, copy docker environment to your working directory. For example this is could be ```YOUR\WORKING\DIRECORY\magento\magento-dev-dk```.
 
 - [Optional - Please read cerefully!] This step is for MAC OS only and really optional, you may skip it. What it about - Setup native NFS for Docker for MAC OS. WARNING: This script will shut down running containers. It will stop your docker and all unused local volumes will be removed. DO NOT use in case if you are do not sure! Use only on your own risk.
 ```yaml
@@ -40,7 +40,7 @@ At the end of this guide you will find the instructions for installing the envir
 ```
 or for mac plus nfs
 ```yaml
-     device: ":/path/to/local/magento/magento2/oms/instance"
+     device: ":/path/to/local/magento/magento2/dev/instance"
 ```
 
 Example:
@@ -48,16 +48,16 @@ Example:
 Unix:
 ```yaml
      volumes:
-       - /PATH/TO/YOUR/magento/magento2-oms-dk/instances:/var/www/html/shared
+       - /PATH/TO/YOUR/magento/magento2-dev-dk/instances:/var/www/html/shared
 ```
 
 Windows:
 ```yaml
      volumes:
-       - C:\PATH\TO\YOUR\magento\magento2-oms-dk\instances:/var/www/html/shared
+       - C:\PATH\TO\YOUR\magento\magento2-dev-dk\instances:/var/www/html/shared
 ```
 - Your directory for develop purpose:
-/PATH/TO/YOUR/magento/magento2-oms-dk/instances
+/PATH/TO/YOUR/magento/magento2-dev-dk/instances
 
 - Once you have Docker Desktop running, [Clone the following from GIT](https://github.com/mike61988/magento2-dk/) to the your working directory. For example this is could be ```YOUR\WORKING\DIRECORY\magento\magento-dk```.
 - Open a terminal in that folder and run the following command
@@ -103,36 +103,6 @@ mv /var/www/html/magento2ce /var/www/html/shared/
 After that command Magento instance will be apear in `instances` directory
 
 ## Other important information
-- In case if you want to use the VM for the "Core Principles for theming" course. Please follow these simple steps.
-
-```
-cd /var/www/html/shared/
-```
-```
-curl -sL https://deb.nodesource.com/setup_12.x | bash -
-```
-```
-apt-get install -y nodejs
-```
-```
-npm install -g grunt-cli
-```
-```
-mv Gruntfile.js.sample Gruntfile.js
-```
-```
-mv package.json.sample package.json
-```
-```
-npm install
-```
-```
-grunt exec
-```
-```
-grunt less
-```
-
 - In case if you need restart the VM. Rebooting your computer will require restarting the VM.
 
 ```

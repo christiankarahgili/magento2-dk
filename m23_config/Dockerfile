@@ -33,6 +33,8 @@ RUN cd /var/www/html/magento2ce/ && \
 	rm -rf .git && \
 	composer install && \
 	bin/magento setup:upgrade ; \
+	mv Gruntfile.js.sample Gruntfile.js && \
+	mv package.json.sample package.json && \
 	chmod -R 777 .
 RUN /etc/init.d/mysql start && \
 	cd /var/www/html/magento2ce/ &&  \
@@ -41,11 +43,12 @@ RUN /etc/init.d/mysql start && \
 	--admin-email=chandlerbing7@gmail.com --admin-user=admin \
 	--admin-password=mageU123 --db-name=m2 --db-host=localhost --db-user=root \
 	--use-rewrites=1 --admin-use-security-key=0 ; \
-	chmod -R 777 /var/www/html/magento2ce/
-
-# Mysql
-#COPY ./mysql/my.cnf /etc/mysql/my.cnf
-#RUN /etc/init.d/mysql restart
+	chmod -R 777 /var/www/html/magento2ce/ && \
+	apt install -y nodejs && \
+	npm install -g grunt-cli && \
+	npm install && \
+	grunt exec && \
+	grunt less
 
 RUN apt --purge autoremove -y ; apt clean
 
